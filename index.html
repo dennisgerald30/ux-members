@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <title></title>
+</head>
+<body ng-app="UX-members" ng-controller="MainCtrl as mainvm">
+<img src="img/loader.gif" alt="loading" ng-hide="mainvm.members" class="fix-center"/>
+<div class="container"  ng-show="mainvm.members">
+
+    <h1>UX Society Members</h1>
+
+    <input id="search" type="text" placeholder=" Search" ng-model="mainvm.search">
+    <table>
+        <div class="members-details" ng-show="mainvm.currentmember" dir-fix>
+            <h2>{{mainvm.currentmember.firstName}} {{mainvm.currentmember.middleInitial}}
+                {{mainvm.currentmember.surname}}</h2>
+            <img ng-src="{{mainvm.currentmember.portrait}}" alt="" class="paddings hero-img"/>
+
+            <h3> {{mainvm.currentmember.occupation}}</h3>
+
+            <h3> {{mainvm.currentmember.company}}</h3>
+
+            <h3>"{{mainvm.currentmember.motto}}"</h3>
+        </div>
+    </table>
+    <div class="members-table left">
+        <div dir-fix>
+        <table  class="head">
+            <tr>
+                <th>Name</th>
+                <th>Occupation</th>
+                <th>Company</th>
+            </tr>
+            </table>
+        </div>
+            <table class="head">
+            <tr class="hover" ng-repeat="member in members=(mainvm.members | filter: mainvm.search)"
+                ng-click="mainvm.changemember($index)" ng-class="{'active':$index==mainvm.currentmemberid }">
+
+                <td>{{member.firstName}} {{member.middleInitial}} {{member.surname}}</td>
+                <td>{{member.occupation}}</td>
+                <td>{{member.company}}</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+<script src="https://code.angularjs.org/1.3.16/angular.min.js"></script>
+<script src="js/ux.members-module.js"></script>
+<script src="js/main-controller.js"></script>
+<script src="js/fix-directive.js"></script>
+</body>
+</html>
